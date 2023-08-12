@@ -1,10 +1,5 @@
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useReducer,
-} from "react";
+import { createContext, Dispatch, ReactNode, useContext } from "react";
+import { useImmerReducer } from "use-immer";
 
 export interface Task {
   text: string;
@@ -48,7 +43,7 @@ export function useTasksDispatch() {
 }
 
 export function TaskProvider({ children }: { children: ReactNode }) {
-  const [taskState, dispatch] = useReducer(tasksReducer, {
+  const [taskState, dispatch] = useImmerReducer(tasksReducer, {
     showTasks: false,
     tasks: [],
   });
@@ -71,21 +66,18 @@ type TaskAction =
   | { type: "add"; payload: string }
   | { type: "delete"; payload: number };
 
-function tasksReducer(state: TasksContext, action: TaskAction): TasksContext {
+function tasksReducer(draft: TasksContext, action: TaskAction) {
   const { type, payload } = action;
   switch (type) {
     case "add": {
-      const newId = state.tasks.length;
-      return {
-        ...state,
-        tasks: [...state.tasks, { id: newId + 1, text: payload }],
-      };
+      const newId = draft.tasks.length;
+      draft.tasks.push({ id: newId + 1, text: payload });
+      break;
     }
     case "delete": {
-      return {
-        ...state,
-        tasks: state.tasks.filter((task) => task.id !== payload),
-      };
+      const index = draft.tasks.findIndex((task) => task.id == payload);
+      if (index !== -1) draft.tasks.splice(index, 1);
+      break;
     }
     default: {
       throw Error("Unknown action :( " + type);
