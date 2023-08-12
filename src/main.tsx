@@ -5,6 +5,7 @@ import "./index.css";
 
 import Context from "./Context";
 import Solox from "./Solox";
+import PropDrilling from "./PropDrilling";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />}>
           <Route path="context" element={<Context />} />
           <Route path="solox" element={<Solox />} />
+          <Route path="prop-drilling" element={<PropDrilling />} />
         </Route>
       </Routes>
     </BrowserRouter>

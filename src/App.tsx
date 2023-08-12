@@ -7,6 +7,12 @@ function App() {
         <ul className="flex gap-2 p-4">
           <Link
             className="border-2 rounded border-slate-500 py-2 px-4"
+            to="/prop-drilling"
+          >
+            Prop Drilling
+          </Link>
+          <Link
+            className="border-2 rounded border-slate-500 py-2 px-4"
             to="/context"
           >
             Context
