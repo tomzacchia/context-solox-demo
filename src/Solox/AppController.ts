@@ -27,10 +27,11 @@ export class CharacterController {
     // Cannot assign to 'character' because it is a read-only property.ts(2540)
     // this.state.current.character = 2;
 
-    // update with immer produce: we pass in immutable state and a recipe, function for "mutating" the state. Inside we perform mutable operations (e.g pop, push, assignment etc...) without returning anything
+    // update with immer produce: we pass in immutable state and a recipe, function for "mutating" the state.
+    // Inside we perform mutable operations (e.g pop, push, assignment etc...) without returning anything
     this.state.update((state) => {
       // state is mutable within scope of the recipe
-      state.counter += 1;
+      state.counter += 2;
     });
   };
 
